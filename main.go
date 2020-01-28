@@ -5,15 +5,20 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"os"
 
 	"github.com/fatih/color"
 )
 
 func main() {
+	port := "8090"
+	if value, ok := os.LookupEnv("PORT"); ok {
+        port =  value
+    }
 
 	http.HandleFunc("/", handler)
-	color.Cyan("Go Server Listening @ 8090!")
-	log.Fatal(http.ListenAndServe(":8090", nil))
+	color.Cyan("--> Go Server Listening @ "+port+"!!")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 
 }
 
@@ -22,19 +27,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if urlPath == "/go" {
 		fmt.Fprintln(w, ":)")
 		return
-	} else {
-		redirectTO := "https://vithalreddy.com"
+	} 
 
-		val, ok := links[urlPath]
-		if ok {
-			redirectTO = val
-		}
+	redirectTO := "https://vithalreddy.com"
 
-		fmt.Printf("::Redircted:: %s -> %s \n", urlPath, val)
-		http.Redirect(w, r, redirectTO, 302)
+	val, ok := links[urlPath]
+	if ok {
+		redirectTO = val
 	}
 
+	fmt.Printf("::Redircted:: %s -> %s \n", urlPath, val)
+	http.Redirect(w, r, redirectTO, 302)
+	
+
 }
+
 
 var links = map[string]string{
 	"/notes": "https://github.com/vithalreddy/notes",
