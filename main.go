@@ -44,6 +44,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 
 var links = map[string]string{
+	"/github": "https://github.com/vithalreddy",
+	"/gitlab": "https://gitlab.com/vithalreddy",
+	"/v": "https://vithalreddy.com",
+	"/fame": "https://stackfame.com",
+	"/fame-admin": "https://stackfame.com/wp-admin/edit.php",
 	"/notes": "https://github.com/vithalreddy/notes",
 	"/cv":    "https://drive.google.com/file/d/109fRG2KxV8WWjPDxNiLpj4TbYK7DxFGf/view",
 }
