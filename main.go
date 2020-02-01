@@ -54,15 +54,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func heartBeat() {
 	for range time.Tick(time.Second * 30) {
 		res, err := http.Get("https://r.reddy.is/go")
-		fmt.Println("HeartBeat ::")
 		if err != nil {
-			fmt.Print(err.Error())
+			color.HiRed(":: HeartBeat ::error::  " + err.Error())
+		} else {
+			data, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				log.Fatal(err)
+			} else {
+				color.HiGreen(":: HeartBeat ::success:: -> " + string(data))
+			}
 		}
-		responseData, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(string(responseData))
 
 	}
 }
