@@ -51,6 +51,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// heartBeat := to keep heroku dyno active
 func heartBeat() {
 	for range time.Tick(time.Second * 30) {
 		res, err := http.Get("https://r.reddy.is/go")
